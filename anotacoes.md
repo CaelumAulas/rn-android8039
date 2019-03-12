@@ -73,3 +73,21 @@ function forEach(funcao) {
 
 function: o this é dinamico, muda de acordo com o contexto de execuçãpo
 arrow function: this ele é estático, sempre o do momento de criação
+
+
+
+## Exemplo de Navegação da Netflix
+
+const HomeStack = createStackNavigator({
+    Home: { screen: HomeScreen, },
+    Filmes: { screen: FilmesScreen, },
+    Series: { screen: SeriesScreen }  
+})
+
+const LogadoTabNavigation = createBottomTabNavigator({
+    HomeStack: HomeStack,
+    Buscar: BuscarScreen,
+    EmBreveStack: EmBreveStack,
+})
+
+

@@ -40,10 +40,12 @@ class SplashScreen extends React.Component {
 const DeslogadoStack = createStackNavigator({
   Login: { screen: LoginScreen },
 }, { initialRouteName: 'Login' });
+
 const LogadoTabNavigation = createBottomTabNavigator({
   Feed: { screen: FeedScreen, },
   Profile: { screen: ProfileScreen }
 })
+
 const AppNavigator = createSwitchNavigator({
   Splash: SplashScreen,
   AreaLogado: LogadoTabNavigation,
