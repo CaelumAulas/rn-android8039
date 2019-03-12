@@ -67,3 +67,9 @@ function forEach(funcao) {
         funcao(item)
     }
 }
+
+
+## Coisas de funcao
+
+function: o this é dinamico, muda de acordo com o contexto de execuçãpo
+arrow function: this ele é estático, sempre o do momento de criação
