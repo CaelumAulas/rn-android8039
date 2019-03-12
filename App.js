@@ -12,13 +12,14 @@ export default class App extends Component {
       if(resposta.ok) return resposta.json()
     })
     .then((respostaConvertidaEmObjeto) => {
+      // this.state.fotos = respostaConvertidaEmObjeto
+      // this.render()
       this.setState({
         fotos: respostaConvertidaEmObjeto
       })
-      // this.state.fotos = respostaConvertidaEmObjeto
-      // this.render()
     })
   }
+
   render() {
     const fotos = this.state.fotos
     return (
