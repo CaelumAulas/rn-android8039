@@ -11,13 +11,13 @@ export default class CardPost extends Component {
                 <View style={ styles.header }>
                     <Image
                         style={ styles.headerAvatar }
-                        source={ { uri: foto.fotoPerfil } } />
-                    <Text style={ styles.headerTitle  } >@{ foto.usuario }</Text>
+                        source={ { uri: foto.urlPerfil } } />
+                    <Text style={ styles.headerTitle  } >@{ foto.loginUsuario }</Text>
                     {/* Reservado para o menu */}
                 </View>
                 <Image
                     style={ styles.cardPostImage }
-                    source={ { uri: foto.url } } />
+                    source={ { uri: foto.urlFoto } } />
 
                 <View style={ styles.footer }>
                     <Text>Descrição da fotinha</Text>

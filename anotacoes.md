@@ -31,3 +31,39 @@
 - https://material.io/design/
 - https://developer.apple.com/design/resources/
 
+
+## Padrões e boas práticas
+- https://standardjs.com/
+- https://github.com/airbnb/javascript
+
+- Não usem FLOW
+
+## Animações
+- Animações fluidas: https://airbnb.design/lottie/
+- 
+
+
+## Debug
+- https://github.com/infinitered/reactotron
+
+
+## Funções de Array
+
+function map(funcao) {
+    const arrayInicial = this
+    const novoArray = []
+
+    for(item of arrayInicial) {
+        novoArray.push(funcao(item))
+    }
+
+    return novoArray
+}
+
+function forEach(funcao) {
+    const arrayInicial = this
+
+    for(item of arrayInicial) {
+        funcao(item)
+    }
+}

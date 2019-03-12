@@ -2,16 +2,29 @@ import React, {Component} from 'react';
 import { ScrollView } from 'react-native';
 import CardPost from './src/components/CardPost'
 export default class App extends Component {
+  state = {
+    fotos: []
+  }
+
+  componentDidMount() {
+    fetch('https://instalura-api.herokuapp.com/api/public/fotos/rafael')
+    .then((resposta) => {
+      if(resposta.ok) return resposta.json()
+    })
+    .then((respostaConvertidaEmObjeto) => {
+      this.setState({
+        fotos: respostaConvertidaEmObjeto
+      })
+      // this.state.fotos = respostaConvertidaEmObjeto
+      // this.render()
+    })
+  }
   render() {
-    const fotos = [
-      { usuario: 'omariosouto', fotoPerfil: 'https://avatars0.githubusercontent.com/u/13791385?s=460&v=4', url: 'https://placehold.it/1000x1000' },
-      { usuario: 'seila', fotoPerfil: 'https://placehold.it/1000x1000', url: 'https://placehold.it/1000x1000' },
-    ]
+    const fotos = this.state.fotos
     return (
       <ScrollView style={ { backgroundColor: 'white' } } >
         {
           fotos.map(function(foto, indice) {
-            // https://flexboxfroggy.com/
             return ( <CardPost key={indice} foto={foto} />)
           })
         }
