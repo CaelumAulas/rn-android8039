@@ -4,7 +4,12 @@ import { View, Text, Button, TextInput, StyleSheet, AsyncStorage } from 'react-n
 class LoginScreen extends React.Component{
     state = {
         login: 'rafael',
-        senha: '12345677',
+        senha: '123456',
+        erroGenerico: '',
+        touchedFields: {
+            login: false,
+            senha: false,
+        }
     }
 
     componentDidMount() {
@@ -26,15 +31,32 @@ class LoginScreen extends React.Component{
                 throw new Error('Não foi possível fazer o login :(')
             })
             .then((token) => {
-                AsyncStorage.setItem('CW_TOKEN', token)
-                this.props.navigation.navigate('AreaLogado')
+                if(token) {
+                    AsyncStorage.setItem('CW_TOKEN', token)
+                        .then(() => {
+                            this.props.navigation.navigate('AreaDeAutenticar')
+                        })
+                } else {
+                    throw new Error('Ocorreu um erro no servidor ao tentar fazer os eu login, entre em contato via sei la')
+                }
             })
             .catch((err) => {
-                console.warn(err.message)
+                this.setState({
+                    erroGenerico: err.message
+                })
             })
+
+
+            this.setState({
+                touchedFields: {
+                    login: true,
+                    senha: true,
+                }
+            })
+    
     }
 
-    render (props) {
+    render () {
         return (
             <View style={ styles.container }>
 
@@ -44,17 +66,37 @@ class LoginScreen extends React.Component{
                     placeholder="Login"
                     value={this.state.login}
                     onChangeText={ login => this.setState({ login }) }
+                    onBlur={ () => this.setState(
+                        { touchedFields: {...this.state.touchedFields, login: true} }
+                    ) }
                 />
-                {/* Erro do login nao preenchido */}
+                {
+                    this.state.login.length === 0 && this.state.touchedFields.login
+                    ? <Text style={ styles.errorLabel } >Preencha o login ai manolo!</Text>
+                    : null
+                }
+
                 <TextInput
                     style={styles.formField}
                     placeholder="Senha"
                     value={this.state.senha}
                     secureTextEntry={true}
                     onChangeText={ senha => this.setState({ senha }) }
+                    onBlur={ () => this.setState(
+                        { touchedFields: {...this.state.touchedFields, senha: true} }
+                    ) }
                 />
-                {/* Erro da senha não preenchida */}
-                {/* Erro genérico do form */}
+                {
+                    this.state.senha.length === 0 && this.state.touchedFields.senha
+                    ? <Text style={ styles.errorLabel } >Preencha a senha ai manolo!</Text>
+                    : null
+                }
+                
+                
+                <Text style={ styles.errorLabel } >
+                    { this.state.erroGenerico }
+                </Text>
+
                 <Button
                     style={styles.formBtn}
                     title="Login"
@@ -94,6 +136,7 @@ const styles = StyleSheet.create({
     formBtn: {
         width: 400,
         backgroundColor: 'red'
-    }
+    },
+    errorLabel: {color: 'red', fontSize: 14 }
 })
 export default LoginScreen

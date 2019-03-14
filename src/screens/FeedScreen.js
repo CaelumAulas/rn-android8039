@@ -1,23 +1,20 @@
 import React, {Component} from 'react';
 import { ScrollView } from 'react-native';
-import CardPost from './src/components/CardPost'
-export default class App extends Component {
+import CardPost from '../components/CardPost'
+import FotosService from '../services/FotosService';
+
+export default class FeedScreen extends Component {
   state = {
     fotos: []
   }
 
   componentDidMount() {
-    fetch('https://instalura-api.herokuapp.com/api/public/fotos/rafael')
-    .then((resposta) => {
-      if(resposta.ok) return resposta.json()
-    })
-    .then((respostaConvertidaEmObjeto) => {
-      // this.state.fotos = respostaConvertidaEmObjeto
-      // this.render()
-      this.setState({
-        fotos: respostaConvertidaEmObjeto
+    FotosService.pegaOFeedComAsFotos()
+      .then((fotos) => {
+        this.setState({
+          fotos: fotos
+        })
       })
-    })
   }
 
   render() {

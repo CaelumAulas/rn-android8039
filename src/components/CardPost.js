@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
 import * as Animatable from 'react-native-animatable'
+import FotosService from '../services/FotosService';
 
 // Container Component
 export default class CardPost extends Component {
@@ -14,14 +15,29 @@ export default class CardPost extends Component {
     }
 
     like = () => {
-        // E usar o setState pra atualizar
+        let likersAtualizado = [
+            ...this.state.foto.likers
+        ]
+
+        if(!this.state.foto.likeada) {
+            likersAtualizado.push({ login: 'rafael' }) 
+        } else {
+            likersAtualizado = likersAtualizado.filter((liker) => {
+                return liker.login !== 'rafael'
+            })
+        }
+
         const fotoAtualizada = {
             ...this.state.foto,
-            likeada: !this.state.foto.likeada
+            likeada: !this.state.foto.likeada,
+            likers: likersAtualizado
         }
         this.setState({
             foto: fotoAtualizada
         })
+
+        FotosService.like(this.state.foto.id)
+
     }
 
     render() {
@@ -38,12 +54,18 @@ export default class CardPost extends Component {
                     <Text style={ styles.headerTitle  } >@{ foto.loginUsuario }</Text>
                     {/* Reservado para o menu */}
                 </View>
+
                 <Image
                     style={ styles.cardPostImage }
                     source={ { uri: foto.urlFoto } } />
 
                 <View style={ styles.footer }>
                     <LikeButton onPress={this.like} likeActive={foto.likeada} />
+                    <Text style={ styles.fontBold } >
+                    { foto.likers.length } likes,
+                    Curtido por: {  foto.likers.length && foto.likers[0].login} 
+                    </Text>
+
                     <Text>Descrição da fotinha</Text>
                 </View>
             </View>
@@ -90,5 +112,7 @@ const styles = StyleSheet.create({
     likeButtonGrande: { width: 80, height: 80 },
     headerTitle: { marginLeft: 10 },
     cardPostImage: { width: larguraTotal, height: larguraTotal },
-    footer: { padding: 15 }
+    footer: { padding: 15 },
+    fontSize: { fontSize: 16 },
+    fontBold: { fontWeight: 'bold', fontSize: 16 }
 })

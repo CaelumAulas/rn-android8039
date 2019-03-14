@@ -3,12 +3,13 @@ import { View, Text, Button } from 'react-native'
 import { createStackNavigator, createAppContainer, createBottomTabNavigator, createSwitchNavigator } from 'react-navigation'
 import * as Animatable from 'react-native-animatable'
 import LoginScreen from './screens/LoginScreen';
+import AuthScreen from './screens/AuthScreen';
+import FeedScreen from './screens/FeedScreen';
 // Telas: === 
 
 
 
 
-const FeedScreen = () => (<View><Text>Home Screen</Text></View>)
 const ProfileScreen = () => (<View><Text>Profile Screen</Text></View>)
 
 
@@ -39,7 +40,10 @@ class SplashScreen extends React.Component {
           </Animatable.Text>
       </View>)
   }
-} // Navegação: =======
+}
+
+
+// Navegação: =======
 
 
 const DeslogadoStack = createStackNavigator({
@@ -51,11 +55,14 @@ const LogadoTabNavigation = createBottomTabNavigator({
   Profile: { screen: ProfileScreen }
 })
 
+
+
+
 const AppNavigator = createSwitchNavigator({
-  Splash: SplashScreen,
+  AreaDeAutenticar: AuthScreen,
   AreaLogado: LogadoTabNavigation,
   AreaDeslogado: DeslogadoStack
-}, { initialRouteName: 'Splash' })
+}, { initialRouteName: 'AreaDeAutenticar' })
 export default createAppContainer(AppNavigator)
 
 // npm start
