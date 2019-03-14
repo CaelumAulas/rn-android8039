@@ -10,6 +10,7 @@
 - Roteamento
     - React Navigation
 - Animações
+    - https://github.com/fram-x/FluidTransitions
 - Webview
 - Persistencia Local
     - Async Storage
@@ -91,3 +92,11 @@ const LogadoTabNavigation = createBottomTabNavigator({
 })
 
 
+
+
+
+## Coisas do Formik
+- https://jaredpalmer.com/formik/docs/guides/react-native
+- Lib para validação sem ifs: https://github.com/jquense/yup
+- Touched https://github.com/jaredpalmer/formik/issues/329
+- ...

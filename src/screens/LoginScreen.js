@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Button, TextInput, StyleSheet, AsyncStorage } from 'react-native'
 
-class LoginScreen extends React.Component{
+class LoginScreen extends React.Component {
     state = {
         login: 'rafael',
         senha: '123456',
@@ -33,9 +33,11 @@ class LoginScreen extends React.Component{
             .then((token) => {
                 if(token) {
                     AsyncStorage.setItem('CW_TOKEN', token)
-                        .then(() => {
-                            this.props.navigation.navigate('AreaDeAutenticar')
-                        })
+                    .then(() => {
+                        AsyncStorage.setItem('CW_USERLOGIN', dadosDoLogin.login)
+
+                        this.props.navigation.navigate('AreaDeAutenticar')
+                    })
                 } else {
                     throw new Error('Ocorreu um erro no servidor ao tentar fazer os eu login, entre em contato via sei la')
                 }
@@ -106,10 +108,27 @@ class LoginScreen extends React.Component{
     }
 }
 
-LoginScreen.navigationOptions = {
-    title: 'Página de Login',
-    headerStyle: {
-        // backgroundColor: '#f4511e',
+LoginScreen.navigationOptions = ({ navigation }) => {
+
+    return {
+        title: 'Página de Login',
+        headerRight: (
+            <Button
+                onPress={() => alert('This is a button!')}
+                title="Info"
+                color="#fff"
+            />
+        ),
+        headerLeft: (
+            <Button
+                onPress={() => alert('This is a button!')}
+                title="Info"
+                color="#fff"
+            />
+        ),
+        headerStyle: {
+            // backgroundColor: '#f4511e',
+        }
     }
 };
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Image, Dimensions, StyleSheet, TouchableOpacity, AsyncStorage } from 'react-native'
 import * as Animatable from 'react-native-animatable'
 import FotosService from '../services/FotosService';
 
@@ -14,16 +14,18 @@ export default class CardPost extends Component {
         }
     }
 
-    like = () => {
+    like = async () => {
+        const usuario = await AsyncStorage.getItem('CW_USERLOGIN')
+
         let likersAtualizado = [
             ...this.state.foto.likers
         ]
 
         if(!this.state.foto.likeada) {
-            likersAtualizado.push({ login: 'rafael' }) 
+            likersAtualizado.push({ login: usuario }) 
         } else {
             likersAtualizado = likersAtualizado.filter((liker) => {
-                return liker.login !== 'rafael'
+                return liker.login !== usuario
             })
         }
 
